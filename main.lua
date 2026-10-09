@@ -392,10 +392,6 @@ local MAP_VI = {
     ["Post every egg you bring home"] = "Gửi thông báo mỗi quả trứng mang về thành công",
     ["selected"] = "đã chọn",
     ["Teleport To Egg"] = "Dịch chuyển đến quả trứng,
-    ["Hide Game UI"] = "Ẩn Giao Diện Game",
-    ["HUD Items"] = "Vật Phẩm HUD",
-    ["Showcase Cards"] = "Thẻ Hiển Thị",
-    ["HUD Size"] = "Kích Thước HUD"
 }
 
 local DYNAMIC_PATTERNS = {
