@@ -391,7 +391,15 @@ local MAP_VI = {
     ["Notify Stolen Eggs"] = "Báo Cáo Cướp Trứng",
     ["Post every egg you bring home"] = "Gửi thông báo mỗi quả trứng mang về thành công",
     ["selected"] = "đã chọn",
-    ["Teleport To Egg"] = "Dịch chuyển đến quả trứng"
+    ["Teleport To Egg"] = "Dịch chuyển đến quả trứng,
+    ["Hide Game UI"] = "Ẩn Giao Diện Game",
+    ["HUD Items"] = "Vật Phẩm HUD",
+    ["Showcase Cards"] = "Thẻ Hiển Thị",
+    ["HUD Size"] = "Kích Thước HUD",
+    ["Egg Card Image"] = "Hình Ảnh Thẻ Trứng",
+    ["Picture used for Top Eggs and Steal History"] = "Hình ảnh được sử dụng cho Bảng Xếp Hạng Trứng và Lịch Sử Cướp",
+    ["Egg Image"] = "Hình Ảnh Trứng",
+    ["Pet Image"] = "Hình Ảnh Thú Cưng"
 }
 
 local DYNAMIC_PATTERNS = {
