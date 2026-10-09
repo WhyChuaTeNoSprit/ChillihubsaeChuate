@@ -1,26 +1,16 @@
--- ==============================================================================
---  🌶️ CHILLI HUB V4 - GIỮ NGUYÊN MÀU SẮC GỐC (ORIGINAL THEME)
---  AUTHOR: CHUATETUNGTUNG
---  Tối ưu hóa:
---    1. GIỮ NGUYÊN MÀU GỐC: Hoàn toàn không can thiệp đổi màu, giữ 100% giao diện nguyên bản của script gốc.
---    2. KHÔNG CAN THIỆP GAME: Tuyệt đối không đụng vào nút game hay menu nội dung bên trong.
---    3. DỊCH THUẬT 100%: Giữ trọn bộ từ điển Master V5.0 cho toàn bộ hệ thống.
--- ==============================================================================
-
 local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
 local LocalPlayer = Players.LocalPlayer
 
--- ==================== 1. NẠP SCRIPT CHILLI HUB GỐC ====================
 task.spawn(function()
     pcall(function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/tienkhanh1/spicy/main/Chilli.lua"))()
     end)
 end)
 
--- ==================== 2. TỪ ĐIỂN DỊCH THUẬT MASTER ====================
 local currentLanguage = "VI"
 local FastCache = {}
 
@@ -34,7 +24,7 @@ local function replaceAll(str, findStr, replaceStr)
 end
 
 local EXACT_MATCH_VI = {
-    ["Chilli Hub"] = "Chilli Hub V4",
+    ["Chilli Hub"] = "Chilli Hub Ultra V4",
     ["Hop"] = "Đổi Server",
     ["Join"] = "Vào Phòng",
     ["Copy"] = "Sao Chép",
@@ -99,7 +89,7 @@ local EXACT_MATCH_VI = {
 }
 
 local MAP_VI = {
-	["Chilli Hub"] = "Chilli Hub V4",
+	["Chilli Hub"] = "Chilli Hub Ultra V4",
 	["Farm"] = "Cày Cuốc",
 	["Player"] = "Người Chơi",
 	["Predictor"] = "Dự Đoán",
@@ -536,13 +526,12 @@ local SortedVI = {}
 for en, vi in pairs(MAP_VI) do table.insert(SortedVI, {en = en, out = vi, len = #en}) end
 table.sort(SortedVI, function(a, b) return a.len > b.len end)
 
--- ==================== 3. LÕI DỊCH THUẬT SIÊU TỐC O(1) ====================
 local function translateText(raw)
     local cacheKey = currentLanguage .. "|" .. raw
     if FastCache[cacheKey] then return FastCache[cacheKey] end
 
     if currentLanguage == "EN" then
-        local res = replaceAll(raw, "Chilli Hub", "Chilli Hub V4")
+        local res = replaceAll(raw, "Chilli Hub", "Chilli Hub Ultra V4")
         FastCache[cacheKey] = res
         return res
     end
@@ -626,7 +615,43 @@ local function updateAllActive()
     end
 end
 
--- ==================== 4. VIÊN NANG CHUYỂN NGÔN NGỮ V4 (CHUATETUNGTUNG) ====================
+local function makeDraggable(frame)
+    local dragging = false
+    local dragInput, dragStart, startPos
+
+    frame.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+            dragging = true
+            dragStart = input.Position
+            startPos = frame.Position
+
+            input.Changed:Connect(function()
+                if input.UserInputState == Enum.UserInputState.End then
+                    dragging = false
+                end
+            end)
+        end
+    end)
+
+    frame.InputChanged:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+            dragInput = input
+        end
+    end)
+
+    UserInputService.InputChanged:Connect(function(input)
+        if input == dragInput and dragging then
+            local delta = input.Position - dragStart
+            frame.Position = UDim2.new(
+                startPos.X.Scale,
+                startPos.X.Offset + delta.X,
+                startPos.Y.Scale,
+                startPos.Y.Offset + delta.Y
+            )
+        end
+    end)
+end
+
 local CAPSULE_ACCENT_TOP = Color3.fromRGB(235, 80, 80)
 local CAPSULE_ACCENT_BOT = Color3.fromRGB(185, 40, 50)
 
@@ -642,22 +667,16 @@ local function createLiquidCapsuleUI()
     ScreenGui.DisplayOrder = 2147483647
     ScreenGui.Parent = parentTarget
 
-    -- Nhãn tác giả V4
-    local AuthorBadge = Instance.new("ScreenGui")
-    AuthorBadge.Name = "ChilliV4_AuthorBadge"
-    AuthorBadge.ResetOnSpawn = false
-    AuthorBadge.IgnoreGuiInset = true
-    AuthorBadge.DisplayOrder = 2147483646
-    AuthorBadge.Parent = parentTarget
-
-    local BadgeFrame = Instance.new("Frame", AuthorBadge)
-    BadgeFrame.Size = UDim2.new(0, 220, 0, 22)
+    local BadgeFrame = Instance.new("Frame", ScreenGui)
+    BadgeFrame.Name = "AuthorBadge"
+    BadgeFrame.Size = UDim2.new(0, 240, 0, 24)
     BadgeFrame.AnchorPoint = Vector2.new(1, 0)
     BadgeFrame.Position = UDim2.new(1, -12, 0, 52)
     BadgeFrame.BackgroundColor3 = Color3.fromRGB(10, 14, 22)
     BadgeFrame.BackgroundTransparency = 0.2
     BadgeFrame.BorderSizePixel = 0
     Instance.new("UICorner", BadgeFrame).CornerRadius = UDim.new(1, 0)
+    
     local BadgeStroke = Instance.new("UIStroke", BadgeFrame)
     BadgeStroke.Color = CAPSULE_ACCENT_TOP
     BadgeStroke.Thickness = 1
@@ -667,13 +686,14 @@ local function createLiquidCapsuleUI()
     BadgeLabel.Size = UDim2.new(1, -10, 1, 0)
     BadgeLabel.Position = UDim2.new(0, 5, 0, 0)
     BadgeLabel.BackgroundTransparency = 1
-    BadgeLabel.Text = "🌶️ Chilli Hub V4 · by CHUATETUNGTUNG"
+    BadgeLabel.Text = "🌶️ Chilli Hub Ultra V4 · by CHUATETUNGTUNG"
     BadgeLabel.TextColor3 = Color3.fromRGB(255, 180, 180)
     BadgeLabel.Font = Enum.Font.GothamBold
     BadgeLabel.TextSize = 9
     BadgeLabel.TextXAlignment = Enum.TextXAlignment.Center
 
-    -- Viên nang ngôn ngữ
+    makeDraggable(BadgeFrame)
+
     local Capsule = Instance.new("Frame")
     Capsule.Name = "Capsule"
     Capsule.Size = UDim2.new(0, 176, 0, 36)
@@ -760,32 +780,9 @@ local function createLiquidCapsuleUI()
     BtnVI.MouseButton1Click:Connect(function() switchMode("VI") end)
     BtnEN.MouseButton1Click:Connect(function() switchMode("EN") end)
 
-    -- Kéo thả tự do
-    local dragging, dragStart, startPos = false, nil, nil
-    Capsule.InputBegan:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-            dragging = true
-            dragStart = input.Position
-            startPos = Capsule.Position
-            input.Changed:Connect(function()
-                if input.UserInputState == Enum.UserInputState.End then dragging = false end
-            end)
-        end
-    end)
-    Capsule.InputChanged:Connect(function(input)
-        if (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) and dragging then
-            local delta = input.Position - dragStart
-            local cam = workspace.CurrentCamera
-            local maxX = cam and cam.ViewportSize.X - 180 or 800
-            local maxY = cam and cam.ViewportSize.Y - 45 or 600
-            local newX = math.clamp(startPos.X.Offset + delta.X, -maxX / 2, maxX / 2)
-            local newY = math.clamp(startPos.Y.Offset + delta.Y, 0, maxY)
-            Capsule.Position = UDim2.new(startPos.X.Scale, newX, startPos.Y.Scale, newY)
-        end
-    end)
+    makeDraggable(Capsule)
 end
 
--- ==================== 5. BỘ QUÉT TẢI TRÌ HOÃN (DEFER SCANNER) ====================
 task.delay(2.5, function()
     createLiquidCapsuleUI()
 
