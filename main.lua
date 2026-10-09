@@ -395,11 +395,7 @@ local MAP_VI = {
     ["Hide Game UI"] = "Ẩn Giao Diện Game",
     ["HUD Items"] = "Vật Phẩm HUD",
     ["Showcase Cards"] = "Thẻ Hiển Thị",
-    ["HUD Size"] = "Kích Thước HUD",
-    ["Egg Card Image"] = "Hình Ảnh Thẻ Trứng",
-    ["Picture used for Top Eggs and Steal History"] = "Hình ảnh được sử dụng cho Bảng Xếp Hạng Trứng và Lịch Sử Cướp",
-    ["Egg Image"] = "Hình Ảnh Trứng",
-    ["Pet Image"] = "Hình Ảnh Thú Cưng"
+    ["HUD Size"] = "Kích Thước HUD"
 }
 
 local DYNAMIC_PATTERNS = {
