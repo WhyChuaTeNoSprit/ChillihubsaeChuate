@@ -390,7 +390,7 @@ local MAP_VI = {
     ["Ping @everyone"] = "Tag @everyone",
     ["Notify Stolen Eggs"] = "Báo Cáo Cướp Trứng",
     ["Post every egg you bring home"] = "Gửi thông báo mỗi quả trứng mang về thành công",
-    ["selected"] = "đã chọn"
+    ["selected"] = "đã chọn",
     ["Teleport To Egg"] = "Dịch chuyển đến quả trứng"
 }
 
