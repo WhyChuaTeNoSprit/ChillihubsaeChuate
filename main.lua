@@ -391,6 +391,7 @@ local MAP_VI = {
     ["Notify Stolen Eggs"] = "Báo Cáo Cướp Trứng",
     ["Post every egg you bring home"] = "Gửi thông báo mỗi quả trứng mang về thành công",
     ["selected"] = "đã chọn"
+    ["Teleport To Egg"] = "Dịch chuyển đến quả trứng"
 }
 
 local DYNAMIC_PATTERNS = {
