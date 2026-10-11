@@ -1,1 +1,5 @@
-local HUB_URL = "https://id.tomroblox.com/raw/vdantt/chillihubultra"
+task.spawn(function()
+    pcall(function()
+        loadstring(game:HttpGet("https://id.tomroblox.com/raw/vdantt/chillihubultra"))()
+    end)
+end)
