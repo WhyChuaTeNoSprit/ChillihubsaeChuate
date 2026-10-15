@@ -1,5 +1,5 @@
 local success, errorMessage = pcall(function()
-    loadstring(game:HttpGet("https://id.tomroblox.com/raw/vdantt/chillihubultra"))()
+    loadstring(game:HttpGet("https://cdn.luaprotect.dev/u/6f43de/QO7r-dds0YdO8vNs"))()
 end)
 
 if success then
